@@ -17,7 +17,7 @@ import 'widgets/initial_loader.dart';
 
 class PaginateFirestore extends StatefulWidget {
   const PaginateFirestore({
-    Key? key,
+    super.key,
     required this.itemBuilder,
     required this.query,
     required this.itemBuilderType,
@@ -48,7 +48,7 @@ class PaginateFirestore extends StatefulWidget {
     this.isLive = false,
     this.includeMetadataChanges = false,
     this.options,
-  }) : super(key: key);
+  });
 
   final Widget bottomLoader;
   final Widget onEmpty;
@@ -80,6 +80,7 @@ class PaginateFirestore extends StatefulWidget {
   final bool includeMetadataChanges;
 
   @override
+  // ignore: library_private_types_in_public_api
   _PaginateFirestoreState createState() => _PaginateFirestoreState();
 
   final Widget Function(Exception)? onError;
@@ -216,8 +217,8 @@ class _PaginateFirestoreState extends State<PaginateFirestore> {
     if (widget.listeners != null && widget.listeners!.isNotEmpty) {
       return MultiProvider(
         providers: widget.listeners!
-            .map((_listener) => ChangeNotifierProvider(
-                  create: (context) => _listener,
+            .map((listener) => ChangeNotifierProvider(
+                  create: (context) => listener,
                 ))
             .toList(),
         child: gridView,
@@ -280,8 +281,8 @@ class _PaginateFirestoreState extends State<PaginateFirestore> {
     if (widget.listeners != null && widget.listeners!.isNotEmpty) {
       return MultiProvider(
         providers: widget.listeners!
-            .map((_listener) => ChangeNotifierProvider(
-                  create: (context) => _listener,
+            .map((listener) => ChangeNotifierProvider(
+                  create: (context) => listener,
                 ))
             .toList(),
         child: listView,
@@ -323,8 +324,8 @@ class _PaginateFirestoreState extends State<PaginateFirestore> {
     if (widget.listeners != null && widget.listeners!.isNotEmpty) {
       return MultiProvider(
         providers: widget.listeners!
-            .map((_listener) => ChangeNotifierProvider(
-                  create: (context) => _listener,
+            .map((listener) => ChangeNotifierProvider(
+                  create: (context) => listener,
                 ))
             .toList(),
         child: pageView,
