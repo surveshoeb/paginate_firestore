@@ -29,6 +29,7 @@ class PaginateFirestore extends StatefulWidget {
     this.onReachedEnd,
     this.onLoaded,
     this.onEmpty = const EmptyDisplay(),
+    this.emptyWithoutScroll = true,
     this.separator = const EmptySeparator(),
     this.initialLoader = const InitialLoader(),
     this.bottomLoader = const BottomLoader(),
@@ -52,6 +53,7 @@ class PaginateFirestore extends StatefulWidget {
 
   final Widget bottomLoader;
   final Widget onEmpty;
+  final bool emptyWithoutScroll;
   final SliverGridDelegate gridDelegate;
   final Widget initialLoader;
   final PaginateBuilderType itemBuilderType;
@@ -120,6 +122,10 @@ class _PaginateFirestoreState extends State<PaginateFirestore> {
           }
 
           if (loadedState.documentSnapshots.isEmpty) {
+            if (widget.emptyWithoutScroll) {
+              return widget.onEmpty;
+            }
+
             return _buildWithScrollView(context, widget.onEmpty);
           }
           return widget.itemBuilderType == PaginateBuilderType.listView
